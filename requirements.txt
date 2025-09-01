@@ -1,0 +1,26 @@
+Option 1: Minimal (no pinned versions)
+
+If you just want the basic dependencies without version pinning:
+
+Flask
+requests
+python-dotenv
+newspaper3k
+
+Option 2: Recommended (with pinned versions)
+
+For a reproducible environment, use pinned versions that are stable and widely compatible:
+
+Flask==2.3.3
+requests==2.31.0
+python-dotenv==1.0.0
+newspaper3k==0.2.8
+
+Option 3: Auto-generate from your environment
+
+Run this command in your virtual environment:
+
+pip freeze > requirements.txt
+
+
+This will capture exact versions currently installed in your environment — ideal if you’ve tested and confirmed everything works.
