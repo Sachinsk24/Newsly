@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <!-- Category Heading -->
+  <div class="text-center mb-4">
+    {% if category %}
+      <h2 class="font-weight-bold text-capitalize">{{ category }} News</h2>
+    {% else %}
+      <h2 class="font-weight-bold">Top Headlines</h2>
+    {% endif %}
+    <span class="badge badge-dark">Page {{ page }} of {{ total_pages }}</span>
+  </div>
+
+  <!-- Article Count -->
+  {% if articles %}
+    <p class="text-muted text-center">
+      Showing {{ articles|length }} of {{ total_results }} article{% if total_results > 1 %}s{% endif %}
+    </p>
+  {% endif %}
+
+  <!-- Articles Grid -->
+  {% if articles %}
+    <div class="row">
+      {% for article in articles %}
+        <div class="col-md-4 mb-4">
+          <div class="card article-card">
+            {% if article.image %}
+              <img src="{{ article.image }}" class="card-img-top" alt="Article image">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ article.title }}</h5>
+              <p class="card-text">{{ article.content }}</p>
+              <a href="{{ article.source }}" class="btn btn-sm btn-outline-primary" target="_blank">Read More</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      No results found for this category.
+    </div>
+  {% endif %}
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-between mt-4">
+    {% if page > 1 %}
+      <a class="btn btn-outline-dark"
+         href="/?page={{ page - 1 }}{% if category %}&category={{ category }}{% endif %}">
+         <i class="fas fa-arrow-left"></i> Prev
+      </a>
+    {% else %}
+      <span></span>
+    {% endif %}
+
+    {% if page < total_pages %}
+      <a class="btn btn-outline-dark"
+         href="/?page={{ page + 1 }}{% if category %}&category={{ category }}{% endif %}">
+         Next <i class="fas fa-arrow-right"></i>
+      </a>
+    {% endif %}
+  </div>
+
+{% endblock %}

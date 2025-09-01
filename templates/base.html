@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Newsly</title>
+
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <style>
+  .article-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 10px;
+  }
+  .article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  /* Sticky Navbar */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+  }
+
+  /* Sticky Badge Row */
+  .badge-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    background: #f8f9fa;
+    position: sticky;
+    top: 56px;
+    z-index: 1020;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  .badge-container .badge {
+    margin: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .badge-container .badge:hover {
+    opacity: 0.85;
+    text-decoration: none;
+  }
+  .badge-active {
+    border: 2px solid #000;
+  }
+
+  /* Back to Top Button */
+  #backToTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: none;
+    border-radius: 50%;
+    padding: 12px 16px;
+  }
+</style>
+
+</head>
+<body>
+  <!-- Sticky Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Newsly</a>
+  </nav>
+
+  <!-- Sticky Badge Row -->
+  <div class="container-fluid badge-container text-center">
+    <a href="/" class="badge badge-pill badge-dark {% if not category %}badge-active{% endif %}">
+      <i class="fas fa-globe mr-1"></i> General
+    </a>
+    <a href="/?category=business" class="badge badge-pill badge-primary {% if category == 'business' %}badge-active{% endif %}">
+      <i class="fas fa-briefcase mr-1"></i> Business
+    </a>
+    <a href="/?category=technology" class="badge badge-pill badge-success {% if category == 'technology' %}badge-active{% endif %}">
+      <i class="fas fa-microchip mr-1"></i> Technology
+    </a>
+    <a href="/?category=sports" class="badge badge-pill badge-danger {% if category == 'sports' %}badge-active{% endif %}">
+      <i class="fas fa-football-ball mr-1"></i> Sports
+    </a>
+    <a href="/?category=health" class="badge badge-pill badge-warning text-dark {% if category == 'health' %}badge-active{% endif %}">
+      <i class="fas fa-heartbeat mr-1"></i> Health
+    </a>
+    <a href="/?category=science" class="badge badge-pill badge-info {% if category == 'science' %}badge-active{% endif %}">
+      <i class="fas fa-flask mr-1"></i> Science
+    </a>
+    <a href="/?category=entertainment" class="badge badge-pill badge-secondary {% if category == 'entertainment' %}badge-active{% endif %}">
+      <i class="fas fa-film mr-1"></i> Entertainment
+    </a>
+  </div>
+
+  <main class="container my-4">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" class="btn btn-dark shadow">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // Show button when scrolled down
+    window.onscroll = function() {
+      const btn = document.getElementById("backToTop");
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+
+    // Scroll smoothly to top
+    document.getElementById("backToTop").addEventListener("click", function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
